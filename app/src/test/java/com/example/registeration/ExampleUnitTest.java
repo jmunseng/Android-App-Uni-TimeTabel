@@ -1,4 +1,4 @@
-package com.example.ass2movieapp;
+package com.example.registeration;
 
 import org.junit.Test;
 
