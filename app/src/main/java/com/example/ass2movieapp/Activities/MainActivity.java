@@ -17,7 +17,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 private RecyclerView recyclerView;
 private MovieRecyclerViewAdapter movieRecyclerViewAdapter;
-private List<Movie> movies;
+private List<Movie> movieList;
 private RequestQueue queue;
 
     @Override

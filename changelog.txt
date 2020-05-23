@@ -1,12 +1,24 @@
-2020-5-4	
+2020-5-4	(munseong)
 Learned GitHub useage		
 Create project	
 
-2020-5-5
+2020-5-5	(munseong)
 create github	
 Push project	
 
-2020-5-6
+2020-5-6	(munseong)
 Add Movie API 
 made RecycleView
 made Card View and adapter
+
+2020-5-8	(munseong)
+Picasso Library
+Changed Recycle View
+
+2020-5-12	(munseong)
+Create menu bar
+
+2020-5-14	(munseong)
+Create movie list
+
+
