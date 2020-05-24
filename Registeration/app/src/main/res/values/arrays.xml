@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="major">
+        <item>SIT101</item>
+        <item>SIT102</item>
+        <item>SIT103</item>
+        <item>SIT104</item>
+        <item>SIT105</item>
+        <item>SIT106</item>
+        <item>SIT107</item>
+        <item>SIT108</item>
+        <item>SIT109</item>
+        <item>SIT111</item>
+        <item>SIT201</item>
+        <item>SIT202</item>
+        <item>SIT203</item>
+        <item>SIT204</item>
+        <item>SIT205</item>
+        <item>SIT206</item>
+        <item>SIT207</item>
+        <item>SIT208</item>
+        <item>SIT209</item>
+        <item>SIT211</item>
+        <item>SIT301</item>
+        <item>SIT302</item>
+        <item>SIT303</item>
+        <item>SIT304</item>
+        <item>SIT305</item>
+        <item>SIT306</item>
+        <item>SIT307</item>
+        <item>SIT308</item>
+        <item>SIT309</item>
+        <item>SIT311</item>
+    </string-array>
+
+
+</resources>

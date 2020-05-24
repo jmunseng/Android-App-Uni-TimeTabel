@@ -7,7 +7,7 @@ create github
 Push project	
 
 2020-5-6	(munseong)
-Add Movie API 
+Add  API 
 made RecycleView
 made Card View and adapter
 
@@ -21,4 +21,9 @@ Create menu bar
 2020-5-14	(munseong)
 Create movie list
 
+2020-5-24
+Login Page Create (munseong)
 
+2020-5-24
+sign up Page Create (kefu)
+Click event
