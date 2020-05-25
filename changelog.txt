@@ -20,10 +20,20 @@ Create menu bar
 
 2020-5-14	(munseong)
 Create movie list
+ 
+2020-5-24	(munseong)
+Login Page Create 
 
-2020-5-24
-Login Page Create (munseong)
-
-2020-5-24
-sign up Page Create (kefu)
+2020-5-24(kefu)
+sign up Page Create 
 Click event
+
+2020-5-25(kefu)
+setup database
+connect database mysql
+
+2020-5-25(kefu)
+function for sign up 
+id check
+id validate
+sign up success
