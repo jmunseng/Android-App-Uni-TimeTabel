@@ -37,3 +37,7 @@ function for sign up
 id check
 id validate
 sign up success
+
+2020-5-27	(munseong)
+fix database connection error
+now working!!!
