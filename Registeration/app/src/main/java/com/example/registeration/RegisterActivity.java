@@ -41,9 +41,9 @@ public class RegisterActivity extends AppCompatActivity {
         adapter = ArrayAdapter.createFromResource(this, R.array.major, android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        final EditText idText = findViewById(R.id.idText);
-        final EditText passwordText = findViewById(R.id.passwordText);
-        final EditText emailText = findViewById(R.id.emailText);
+        final EditText idText = (EditText)findViewById(R.id.idText);
+        final EditText passwordText = (EditText)findViewById(R.id.passwordText);
+        final EditText emailText = (EditText)findViewById(R.id.emailText);
 
         RadioGroup genderGroup = findViewById(R.id.genderGroup);
         int genderGroupID = genderGroup.getCheckedRadioButtonId();
@@ -54,8 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int i) {
                 RadioButton genderButton = (RadioButton) findViewById(i);
                 userGender = genderButton.getText().toString();
-
-
             }
         });
 
@@ -66,9 +64,11 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userID = idText.getText().toString();
                 if (validate) {
+                    System.out.println("=============0=====");
                     return;
                 }
                 if ((userID.equals(""))) {
+                    System.out.println("=============00=====");
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("ID can not empty!!")
                             .setPositiveButton("OK", null)
@@ -80,11 +80,13 @@ public class RegisterActivity extends AppCompatActivity {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        System.out.println("=============1=====");
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
+                            System.out.println("=============1=====");
                             if (success) {
+                                System.out.println("=============2=====");
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 dialog = builder.setMessage("ID can Use!!")
                                         .setPositiveButton("OK", null)
@@ -96,14 +98,16 @@ public class RegisterActivity extends AppCompatActivity {
                                 idText.setBackgroundColor(getResources().getColor(R.color.colorGray));
                                 validateButton.setBackgroundColor(getResources().getColor(R.color.colorGray));
                             } else {
+                                System.out.println("=============3=====");
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 dialog = builder.setMessage("ID can not Usable!!")
-                                        .setPositiveButton("OK", null)
+                                        .setNegativeButton("OK", null)
                                         .create();
+                                dialog.show();
 
                             }
                         } catch (Exception e) {
-
+                            System.out.println("=============4=====");
                             e.printStackTrace();
                         }
                     }
@@ -164,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 dialog = builder.setMessage("Sign up Failed")
                                         .setPositiveButton("OK", null)
                                         .create();
-
+                                dialog.show();
                             }
                         } catch (Exception e) {
 

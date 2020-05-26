@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ValidateRequest extends StringRequest {
 
-    final static private String URL = "http://ndb796android.cafe24.com/UserValidate.php";
+    final static private String URL = "https://deakin.cafe24.com/UserValidate.php";
     private Map<String, String> parameters;
 
     public ValidateRequest(String userID, Response.Listener<String> listener) {
@@ -18,8 +18,9 @@ public class ValidateRequest extends StringRequest {
 
 
     }
+
     @Override
-    public Map<String, String> getParams(){
+    public Map<String, String> getParams() {
         return parameters;
     }
 }
