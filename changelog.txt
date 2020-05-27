@@ -42,9 +42,13 @@ sign up success
 fix database connection error
 now working!!!
 
-2020-5-27	(kefu)
+2020-5-27(kefu)
 Create login function 
 
-2020-5-28	(kefu)
+2020-5-28(kefu)
 Login success full
 can connect database 
+
+2020-5-28(kefu)
+My Page Button action work
+change fragment 
