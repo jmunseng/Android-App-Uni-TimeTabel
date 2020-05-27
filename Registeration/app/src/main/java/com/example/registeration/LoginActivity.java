@@ -1,14 +1,17 @@
 package com.example.registeration;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
-
+private AlertDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +25,13 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+        final EditText idText = (EditText) findViewById(R.id.idText);
+        final EditText passwordText = (EditText) findViewById(R.id.passwordText);
+        final Button loginButton = (Button) findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(new View.OnClickListener(){
+            
+        });
+
     }
 }
