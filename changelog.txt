@@ -41,3 +41,10 @@ sign up success
 2020-5-27	(munseong)
 fix database connection error
 now working!!!
+
+2020-5-27	(kefu)
+Create login function 
+
+2020-5-28	(kefu)
+Login success full
+can connect database 

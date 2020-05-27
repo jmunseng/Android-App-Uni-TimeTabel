@@ -57,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // ID validate function
         final Button validateButton = (Button) findViewById(R.id.validateButton);
         validateButton.setOnClickListener(new View.OnClickListener() {
 
@@ -100,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                             } else {
                                 System.out.println("=============3=====");
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                dialog = builder.setMessage("ID can not Usable!!")
+                                dialog = builder.setMessage("ID already exist!!")
                                         .setNegativeButton("OK", null)
                                         .create();
                                 dialog.show();
@@ -117,6 +118,8 @@ public class RegisterActivity extends AppCompatActivity {
                 queue.add(validateRequest);
             }
         });
+
+        // register function activity
         Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,18 +155,18 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         try {
+                            System.out.println("=============register ?====");
                             JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("Sign Up success");
+                            boolean success = jsonResponse.getBoolean("success");
                             if (success) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                dialog = builder.setMessage("ID can Use!!")
+                                dialog = builder.setMessage("Sign up success full!!")
                                         .setPositiveButton("OK", null)
                                         .create();
-
                                 dialog.show();
                                 finish();
-
                             } else {
+                                System.out.println("=============not register ?====");
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 dialog = builder.setMessage("Sign up Failed")
                                         .setPositiveButton("OK", null)
@@ -171,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 dialog.show();
                             }
                         } catch (Exception e) {
-
+                            System.out.println("=============wtf ?====");
                             e.printStackTrace();
                         }
                     }
