@@ -52,3 +52,11 @@ can connect database
 2020-5-28(kefu)
 My Page Button action work
 change fragment 
+
+
+
+2020-5-28	(munseong)
+Create Notice List 
+sync with database 
+
+
