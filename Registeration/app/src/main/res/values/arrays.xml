@@ -34,5 +34,30 @@
         <item>SIT311</item>
     </string-array>
 
+    <string-array name="year">
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+        <item>2023</item>
 
+    </string-array>
+
+    <string-array name="term">
+        <item>Trimester 1</item>
+        <item>March</item>
+        <item>Trimester 2</item>
+        <item>July</item>
+
+    </string-array>
+    <string-array name="graduateArea">
+        <item>Major Graduate</item>
+        <item>Elective Graduate</item>
+
+    </string-array>
+
+    <string-array name="universityArea">
+        <item>Major</item>
+        <item>Elective</item>
+
+    </string-array>
 </resources>
