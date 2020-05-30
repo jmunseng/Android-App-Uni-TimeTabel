@@ -168,5 +168,39 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+
+//normal setup..
+            newsRecycleView = findViewById(R.id.recyclerView);
+            newsAdapter = new MyRecyclerAdapter(newsList, this);
+            newsAdapter.setFragmentSelected(this);
+            newsRecycleView.setAdapter(newsAdapter);
+
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+            newsRecycleView.setLayoutManager(layoutManager);
+            //get data to the Arraylist
+            for(int i = 0; i < imageList.length; i++){
+                int image = imageList[i];
+                String title = titleList[i];
+                CardItem cardItem = new CardItem(title,image);
+                newsList.add(cardItem);
+            }
+
+        }
+        //run the fragment selected
+        public void fragmentSelected(Fragment fragment){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.mainView, fragment);
+            fragmentTransaction.commit();
+        }
+        //back button
+        public void onBackPressed() {
+            // do something on back.
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 }
