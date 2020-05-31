@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -177,4 +178,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    private long lastTimeBackPressed;
+
+    @Override
+    public  void  onBackPressed(){
+        if(System.currentTimeMillis() - lastTimeBackPressed < 1500){
+            finish();
+            return;
+        }
+        Toast.makeText(this, "double click to close", Toast.LENGTH_SHORT);
+        lastTimeBackPressed = System.currentTimeMillis();
+    }
+
+
 }

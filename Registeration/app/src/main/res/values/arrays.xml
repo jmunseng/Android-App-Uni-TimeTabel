@@ -39,25 +39,49 @@
         <item>2021</item>
         <item>2022</item>
         <item>2023</item>
-
     </string-array>
 
     <string-array name="term">
-        <item>Trimester 1</item>
-        <item>March</item>
-        <item>Trimester 2</item>
-        <item>July</item>
-
+        <item>T1</item>
+        <item>T2</item>
+        <item>T3</item>
     </string-array>
-    <string-array name="graduateArea">
-        <item>Major Graduate</item>
-        <item>Elective Graduate</item>
 
+    <string-array name="graduateArea">
+        <item>G-Major</item>
+        <item>G-Elective</item>
     </string-array>
 
     <string-array name="universityArea">
         <item>Major</item>
         <item>Elective</item>
-
     </string-array>
+
+    <string-array name="graduateMajor">
+        <item>SIT305</item>
+        <item>SIT333</item>
+        <item>AIC306</item>
+        <item>MMH115</item>
+        <item>MMH123</item>
+        <item>MMH325</item>
+    </string-array>
+
+    <string-array name="universityMajor">
+        <item>SIT705</item>
+        <item>SIT733</item>
+        <item>SIT777</item>
+        <item>MMH715</item>
+        <item>MMH723</item>
+        <item>MMH725</item>
+    </string-array>
+
+    <string-array name="universityRefinementMajor">
+        <item>SIT101</item>
+        <item>SIT101</item>
+        <item>SIT101</item>
+        <item>MMH101</item>
+        <item>MMH101</item>
+        <item>MMH101</item>
+    </string-array>
+
 </resources>
