@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NoticeListAdapter(getApplicationContext(), noticeList);
         noticeListView.setAdapter(adapter);
 
+
         final Button courseButton = findViewById(R.id.courseButton);
         final Button statisticsButton = findViewById(R.id.statisticsButton);
         final Button scheduleButton = findViewById(R.id.scheduleButton);
@@ -102,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         new BackgroundTask().execute();
+        System.out.println("======!!!!!" + noticeList);
     }
-
+//notice data take
     class BackgroundTask extends AsyncTask<Void, Void, String> {
-
 
         String target;
 
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             target = "https://deakin.cafe24.com/NoticeList.php";
         }
-
+//connection database
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -123,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 String temp;
                 StringBuilder stringBuilder = new StringBuilder();
-                while ((temp = bufferedReader.readLine()) !=null){
-                    stringBuilder.append(temp+ "\n");
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
 
                 }
                 bufferedReader.close();
@@ -138,14 +139,18 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
-        public void onProgressUpdate(Void... value){
+        public void onProgressUpdate(Void... value) {
             super.onProgressUpdate();
             System.out.println("=========onprogress");
         }
+
+// get data from database
+
         @Override
-        public void onPostExecute(String result){
-            try{
+        public void onPostExecute(String result) {
+            try {
 
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
@@ -157,50 +162,19 @@ public class MainActivity extends AppCompatActivity {
                     noticeContent = object.getString("noticeContent");
                     noticeName = object.getString("noticeName");
                     noticeDate = object.getString("noticeDate");
-                    Notice notice = new Notice(noticeContent,noticeName,noticeDate);
-                    System.out.println("======" + noticeContent);
+                    Notice notice = new Notice(noticeContent, noticeName, noticeDate);
+                    System.out.println("======" + notice);
                     noticeList.add(notice);
+                    adapter.notifyDataSetChanged();
+                    //adapter data changed... !!!!
                     count++;
 
 
                 }
-            }catch (Exception e){
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-
-//normal setup..
-            newsRecycleView = findViewById(R.id.recyclerView);
-            newsAdapter = new MyRecyclerAdapter(newsList, this);
-            newsAdapter.setFragmentSelected(this);
-            newsRecycleView.setAdapter(newsAdapter);
-
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-            newsRecycleView.setLayoutManager(layoutManager);
-            //get data to the Arraylist
-            for(int i = 0; i < imageList.length; i++){
-                int image = imageList[i];
-                String title = titleList[i];
-                CardItem cardItem = new CardItem(title,image);
-                newsList.add(cardItem);
-            }
-
-        }
-        //run the fragment selected
-        public void fragmentSelected(Fragment fragment){
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainView, fragment);
-            fragmentTransaction.commit();
-        }
-        //back button
-        public void onBackPressed() {
-            // do something on back.
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
         }
     }
 }
