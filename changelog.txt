@@ -54,10 +54,15 @@ My Page Button action work
 change fragment 
 
 
-
 2020-5-28	(munseong)
 Create Notice List 
 sync with database 
+
+2020-5-29(kefu)
+Create Notice List 
+
+2020-5-29(kefu)
+solve main notification error ...
 
 2020-5-31	(munseong)
 notice didn't show error solve
