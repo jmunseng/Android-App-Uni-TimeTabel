@@ -48,16 +48,17 @@
     </string-array>
 
     <string-array name="graduateArea">
-        <item>G-Major</item>
-        <item>G-Elective</item>
+        <item>G Core</item>
+        <item>G Elective</item>
     </string-array>
 
     <string-array name="universityArea">
-        <item>Major</item>
+        <item>Core</item>
         <item>Elective</item>
+        <item>Other</item>
     </string-array>
 
-    <string-array name="graduateMajor">
+    <string-array name="universityMajor">
         <item>SIT305</item>
         <item>SIT333</item>
         <item>AIC306</item>
@@ -66,7 +67,7 @@
         <item>MMH325</item>
     </string-array>
 
-    <string-array name="universityMajor">
+    <string-array name="graduateMajor">
         <item>SIT705</item>
         <item>SIT733</item>
         <item>SIT777</item>

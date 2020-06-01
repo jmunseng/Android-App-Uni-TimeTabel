@@ -1,5 +1,7 @@
 package com.example.registeration;
 
+import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,10 +9,24 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 /**
@@ -68,6 +84,9 @@ public class CourseFragment extends Fragment {
     private ArrayAdapter areaAdapter;
     private Spinner areaSpinner;
 
+    private ArrayAdapter majorAdapter;
+    private Spinner majorSpinner;
+
     private String courseUniversity = "";
     private String courseYear = "";
     private String courseTerm = "";
@@ -80,8 +99,10 @@ public class CourseFragment extends Fragment {
         yearSpinner = (Spinner) getView().findViewById(R.id.yearSpinner);
         termSpinner = (Spinner) getView().findViewById(R.id.termSpinner);
         areaSpinner = (Spinner) getView().findViewById(R.id.areaSpinner);
+        majorSpinner = (Spinner) getView().findViewById(R.id.majorSpinner);
 
-        courseUniversityGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+
+        courseUniversityGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -90,26 +111,57 @@ public class CourseFragment extends Fragment {
 
                 courseUniversity = courseButton.getText().toString();
 
-                yearAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.year, android.R.layout.simple_spinner_dropdown_item);
+                yearAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.year, android.R.layout.simple_spinner_dropdown_item);
                 yearSpinner.setAdapter(yearAdapter);
-                termAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.term, android.R.layout.simple_spinner_dropdown_item);
+                termAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.term, android.R.layout.simple_spinner_dropdown_item);
                 termSpinner.setAdapter(termAdapter);
-                
 
 
-                if(courseUniversity.equals("undergraduate")){
-                    areaAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.universityArea, android.R.layout.simple_spinner_dropdown_item);
+                if (courseUniversity.equals("undergraduate")) {
+                    areaAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityArea, android.R.layout.simple_spinner_dropdown_item);
                     areaSpinner.setAdapter(areaAdapter);
+                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityRefinementMajor, android.R.layout.simple_spinner_dropdown_item);
+                    majorSpinner.setAdapter(majorAdapter);
 
-                }else if (courseUniversity.equals("postgraduate")){
-                    areaAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.graduateArea, android.R.layout.simple_spinner_dropdown_item);
+                } else if (courseUniversity.equals("postgraduate")) {
+                    areaAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.graduateArea, android.R.layout.simple_spinner_dropdown_item);
                     areaSpinner.setAdapter(areaAdapter);
+                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.graduateMajor, android.R.layout.simple_spinner_dropdown_item);
+                    majorSpinner.setAdapter(majorAdapter);
 
                 }
 
 
+            }
 
+        });
+        areaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if (areaSpinner.getSelectedItem().equals("Core")) {
+
+                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityRefinementMajor, android.R.layout.simple_spinner_dropdown_item);
+                    majorSpinner.setAdapter(majorAdapter);
+                }
+                if (areaSpinner.getSelectedItem().equals("Elective")) {
+
+                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityMajor, android.R.layout.simple_spinner_dropdown_item);
+                    majorSpinner.setAdapter(majorAdapter);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        Button searchButton = (Button)getView().findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new BackgroundTask().execute();
             }
         });
     }
@@ -120,5 +172,74 @@ public class CourseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_course, container, false);
+    }
+
+    class BackgroundTask extends AsyncTask<Void, Void, String> {
+
+        String target;
+
+        @Override
+        protected void onPreExecute() {
+            try {
+                target = "https://deakin.cafe24.com/CourseList.php?courseUniversity = " + URLEncoder.encode(courseUniversity, "UTF-8") +
+                        "&courseYear=" + URLEncoder.encode(yearSpinner.getSelectedItem().toString().substring(0, 4), "UTF-8") +
+                        "&courseTerm=" + URLEncoder.encode(termSpinner.getSelectedItem().toString(), "UTF-8") +
+                        "&courseArea=" + URLEncoder.encode(areaSpinner.getSelectedItem().toString(), "UTF-8") +
+                        "&courseMajor=" + URLEncoder.encode(majorSpinner.getSelectedItem().toString(), "UTF-8")
+                ;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //connection database
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(target);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpsURLConnection.disconnect();
+                System.out.println("=========get course");
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... value) {
+            super.onProgressUpdate();
+            System.out.println("=========onprogress");
+        }
+
+        // get data from database
+
+        @Override
+        public void onPostExecute(String result) {
+            try {
+                System.out.println(result + "!!!!!!!!!!!!!!!!!!!!!!!!!");
+                AlertDialog dialog;
+                AlertDialog.Builder builder = new AlertDialog.Builder(CourseFragment.this.getContext());
+                dialog = builder.setMessage(result)
+                        .setPositiveButton("OK", null)
+                        .create();
+                dialog.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -59,4 +59,13 @@ change fragment
 Create Notice List 
 sync with database 
 
+2020-5-31	(munseong)
+notice didn't show error solve
 
+
+2020-6-1	(munseong)
+Course List data create, Spinner show list
+
+2020-6-1	(munseong)
+set database mysql and insert data to database
+Course List data get From Mysql
