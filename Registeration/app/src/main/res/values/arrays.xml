@@ -59,12 +59,13 @@
     </string-array>
 
     <string-array name="universityMajor">
-        <item>SIT305</item>
-        <item>SIT333</item>
-        <item>AIC306</item>
-        <item>MMH115</item>
-        <item>MMH123</item>
-        <item>MMH325</item>
+
+        <item>SIT101</item>
+        <item>SIT101</item>
+        <item>SIT101</item>
+        <item>MMH101</item>
+        <item>MMH101</item>
+        <item>MMH101</item>
     </string-array>
 
     <string-array name="graduateMajor">
@@ -77,12 +78,12 @@
     </string-array>
 
     <string-array name="universityRefinementMajor">
-        <item>SIT101</item>
-        <item>SIT101</item>
-        <item>SIT101</item>
-        <item>MMH101</item>
-        <item>MMH101</item>
-        <item>MMH101</item>
+        <item>SIT305</item>
+        <item>SIT333</item>
+        <item>AIC306</item>
+        <item>MMH115</item>
+        <item>MMH123</item>
+        <item>MMH325</item>
     </string-array>
 
 </resources>

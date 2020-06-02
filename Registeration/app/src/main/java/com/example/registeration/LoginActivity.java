@@ -39,7 +39,7 @@ private AlertDialog dialog;
 
             @Override
             public void onClick(View v) {
-                String userID = idText.getText().toString();
+                final String userID = idText.getText().toString();
                 String userPassword = passwordText.getText().toString();
 
                 Response.Listener<String> responseLister = new Response.Listener<String>() {
@@ -57,6 +57,9 @@ private AlertDialog dialog;
                                 dialog.show();
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                                intent.putExtra("userID", userID);
+
                                 LoginActivity.this.startActivity(intent);
                                 finish();
                             }else{

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -30,10 +32,16 @@ public class MainActivity extends AppCompatActivity {
     private NoticeListAdapter adapter;
     private List<Notice> noticeList;
 
+    public static String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);//*****
+
+        userID = getIntent().getStringExtra("userID");
 
         noticeListView = findViewById(R.id.noticeListView);
         noticeList = new ArrayList<Notice>();
@@ -106,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
         new BackgroundTask().execute();
         System.out.println("======!!!!!" + noticeList);
     }
-//notice data take
+
+    //notice data take
     class BackgroundTask extends AsyncTask<Void, Void, String> {
 
         String target;
@@ -115,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             target = "https://deakin.cafe24.com/NoticeList.php";
         }
-//connection database
+
+        //connection database
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -178,11 +188,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private long lastTimeBackPressed;
 
     @Override
-    public  void  onBackPressed(){
-        if(System.currentTimeMillis() - lastTimeBackPressed < 1500){
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastTimeBackPressed < 1500) {
             finish();
             return;
         }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -25,6 +26,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -88,9 +91,12 @@ public class CourseFragment extends Fragment {
     private Spinner majorSpinner;
 
     private String courseUniversity = "";
-    private String courseYear = "";
-    private String courseTerm = "";
-    private String courseArea = "";
+
+
+    private ListView courseListView;
+    private CourseListAdapter adapter;
+    private List<Course> courseList;
+
 
     @Override
     public void onActivityCreated(Bundle b) {
@@ -141,12 +147,17 @@ public class CourseFragment extends Fragment {
 
                 if (areaSpinner.getSelectedItem().equals("Core")) {
 
-                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityRefinementMajor, android.R.layout.simple_spinner_dropdown_item);
+                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityMajor, android.R.layout.simple_spinner_dropdown_item);
                     majorSpinner.setAdapter(majorAdapter);
                 }
                 if (areaSpinner.getSelectedItem().equals("Elective")) {
 
-                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityMajor, android.R.layout.simple_spinner_dropdown_item);
+                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.graduateMajor, android.R.layout.simple_spinner_dropdown_item);
+                    majorSpinner.setAdapter(majorAdapter);
+                }
+                if (areaSpinner.getSelectedItem().equals("Other")) {
+
+                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityRefinementMajor, android.R.layout.simple_spinner_dropdown_item);
                     majorSpinner.setAdapter(majorAdapter);
                 }
 
@@ -157,6 +168,13 @@ public class CourseFragment extends Fragment {
 
             }
         });
+
+        courseListView = getView().findViewById(R.id.courseListView);
+        courseList = new ArrayList<Course>();
+        adapter = new CourseListAdapter(getContext().getApplicationContext(), courseList, this);
+
+        courseListView.setAdapter(adapter);
+
         Button searchButton = (Button)getView().findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +199,14 @@ public class CourseFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             try {
-                target = "https://deakin.cafe24.com/CourseList.php?courseUniversity = " + URLEncoder.encode(courseUniversity, "UTF-8") +
+                System.out.println(courseUniversity);
+                System.out.println(yearSpinner.getSelectedItem().toString());
+                System.out.println(termSpinner.getSelectedItem().toString());
+                System.out.println(areaSpinner.getSelectedItem().toString());
+                System.out.println(majorSpinner.getSelectedItem().toString());
+
+
+                target = "https://deakin.cafe24.com/CourseList.php?courseUniversity=" + URLEncoder.encode(courseUniversity, "UTF-8") +
                         "&courseYear=" + URLEncoder.encode(yearSpinner.getSelectedItem().toString().substring(0, 4), "UTF-8") +
                         "&courseTerm=" + URLEncoder.encode(termSpinner.getSelectedItem().toString(), "UTF-8") +
                         "&courseArea=" + URLEncoder.encode(areaSpinner.getSelectedItem().toString(), "UTF-8") +
@@ -229,14 +254,67 @@ public class CourseFragment extends Fragment {
         @Override
         public void onPostExecute(String result) {
             try {
-                System.out.println(result + "!!!!!!!!!!!!!!!!!!!!!!!!!");
-                AlertDialog dialog;
-                AlertDialog.Builder builder = new AlertDialog.Builder(CourseFragment.this.getContext());
-                dialog = builder.setMessage(result)
-                        .setPositiveButton("OK", null)
-                        .create();
-                dialog.show();
+//                System.out.println(result + "!!!!!!!!!!!!!!!!!!!!!!!!!");
+//                AlertDialog dialog;
+//                AlertDialog.Builder builder = new AlertDialog.Builder(CourseFragment.this.getContext());
+//                dialog = builder.setMessage(result)
+//                        .setPositiveButton("OK", null)
+//                        .create();
+//                dialog.show();
+                courseList.clear();
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
+                int count = 0;
 
+                int courseID;
+                String courseUniversity;
+                int courseYear;
+                String courseTerm;
+                String courseArea;
+                String courseMajor;
+                String courseGrade;
+                String courseTitle;
+                int courseCredit;
+                int courseDivide;
+                int coursePersonnel;
+                String courseProfessor;
+                String courseTime;
+                String courseRoom;
+
+                while (count<jsonArray.length()){
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    courseID = object.getInt("courseID");
+                    courseUniversity = object.getString("courseUniversity");
+                    courseYear = object.getInt("courseYear");
+                    courseTerm = object.getString("courseTerm");
+                    courseArea = object.getString("courseArea");
+                    courseMajor = object.getString("courseMajor");
+                    courseGrade = object.getString("courseGrade");
+                    courseTitle = object.getString("courseTitle");
+                    courseCredit = object.getInt("courseCredit");
+                    courseDivide = object.getInt("courseDivide");
+                    coursePersonnel = object.getInt("coursePersonnel");
+                    courseProfessor = object.getString("courseProfessor");
+                    courseTime = object.getString("courseTime");
+                    courseRoom = object.getString("courseRoom");
+                    Course course = new Course( courseID,  courseUniversity,
+                            courseYear,  courseTerm,  courseArea,  courseMajor,
+                            courseGrade,  courseTitle,  courseCredit,  courseDivide,
+                            coursePersonnel,  courseProfessor,  courseTime,  courseRoom);
+
+                    courseList.add(course);
+                    count++;
+
+                }
+                if(count ==0){
+                    AlertDialog dialog;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CourseFragment.this.getActivity());
+                    dialog = builder.setMessage("No Have course! \n Please check date")
+                            .setNegativeButton("OK", null)
+                            .create();
+                    dialog.show();
+                }
+                adapter.notifyDataSetChanged();
             } catch (Exception e) {
                 e.printStackTrace();
             }
