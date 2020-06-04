@@ -48,42 +48,34 @@
     </string-array>
 
     <string-array name="graduateArea">
-        <item>G Core</item>
-        <item>G Elective</item>
+        <item>M Core</item>
+        <item>M Elective</item>
     </string-array>
 
     <string-array name="universityArea">
         <item>Core</item>
         <item>Elective</item>
-        <item>Other</item>
     </string-array>
 
     <string-array name="universityMajor">
 
-        <item>SIT101</item>
-        <item>SIT101</item>
-        <item>SIT101</item>
-        <item>MMH101</item>
-        <item>MMH101</item>
-        <item>MMH101</item>
+        <item>Bachelor IT</item>
+        <item>Law</item>
+        <item>Medicine</item>
+        <item>Psychology</item>
     </string-array>
 
     <string-array name="graduateMajor">
-        <item>SIT705</item>
-        <item>SIT733</item>
-        <item>SIT777</item>
-        <item>MMH715</item>
-        <item>MMH723</item>
-        <item>MMH725</item>
+        <item>Master IT</item>
+        <item>Master Law</item>
+        <item>Master Medicine</item>
+        <item>Master Psychology</item>
     </string-array>
 
     <string-array name="universityRefinementMajor">
-        <item>SIT305</item>
-        <item>SIT333</item>
-        <item>AIC306</item>
-        <item>MMH115</item>
-        <item>MMH123</item>
-        <item>MMH325</item>
+        <item>Chinese</item>
+        <item>Japanese</item>
+        <item>English</item>
     </string-array>
 
 </resources>

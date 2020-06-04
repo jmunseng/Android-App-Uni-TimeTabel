@@ -152,7 +152,7 @@ public class CourseFragment extends Fragment {
                 }
                 if (areaSpinner.getSelectedItem().equals("Elective")) {
 
-                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.graduateMajor, android.R.layout.simple_spinner_dropdown_item);
+                    majorAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.universityRefinementMajor, android.R.layout.simple_spinner_dropdown_item);
                     majorSpinner.setAdapter(majorAdapter);
                 }
                 if (areaSpinner.getSelectedItem().equals("Other")) {
