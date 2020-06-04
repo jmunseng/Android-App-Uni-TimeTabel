@@ -74,3 +74,12 @@ Course List data create, Spinner show list
 2020-6-1	(munseong)
 set database mysql and insert data to database
 Course List data get From Mysql
+
+2020-6-3	(munseong)
+Add course to the Schedule table
+Fix error about add schedule table
+
+
+2020-6-4	(munseong)
+add Schedule Validate 
+

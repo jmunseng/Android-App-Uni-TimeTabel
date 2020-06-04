@@ -231,7 +231,6 @@ public class CourseListAdapter extends BaseAdapter {
                 String courseProfessor;
                 String courseTime;
                 int courseID;
-                String noticeContent, noticeName, noticeDate;
                 while (count < jsonArray.length()) {
 
                     JSONObject object = jsonArray.getJSONObject(count);
@@ -240,7 +239,6 @@ public class CourseListAdapter extends BaseAdapter {
                     courseTime = object.getString("courseTime");
                     courseIDList.add(courseID);
                     schedule.addSchedule(courseTime);
-                    System.out.println("======" + "schedule");
 
                     //adapter data changed... !!!!
                     count++;
